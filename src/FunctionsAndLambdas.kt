@@ -1,10 +1,10 @@
 /* extension function */
 fun String.print() {  // extension function for the String type
     val d = this // function receiver i.e. object of the String type
-    val c = get(0)  // this is call to String::get
+    val c = get(0)  // call to the receiver. 'this' is omitted
 }
 
-fun test() {
+private fun extensionFunctionInvocation() {
     "def".print()
 }
 
@@ -15,20 +15,21 @@ fun test() {
 * */
 
 /* lambda expressions */
-val stringLength = { s: String ->
+val lambdaExpression = { s: String ->
     s.length
 }
 val sum1 = { x: Int, y: Int -> x + y }
 val sum2: (Int, Int) -> Int = { x, y -> x + y }  // this is equivalent to the sum1
 
-// lambda invocation
-val length = stringLength("foo")
+fun lambdaInvocation() {
+    val length = lambdaExpression("foo")
+}
 
 
 
 /* anonymous functions */
 
-val anonymous1 = fun(x: Int, y: Int) = x + y
+val anonymousFunction = fun(x: Int, y: Int) = x + y
 
 val anonymous2 = fun(x: Int, y: Int): Int {  // full syntax
     return x + y
@@ -45,6 +46,6 @@ val funLit = fun String.() {  // anonymous function with the receiver object of 
     val c = get(0)  // this is call to String::get
 }
 
-fun test2() {
-    "abc".funLit()  // invoked on the object of the String type
+fun functionLiteralWithReceiverInvocation() {
+    "abc".funLit()
 }

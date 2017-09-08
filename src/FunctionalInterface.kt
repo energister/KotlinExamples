@@ -1,23 +1,39 @@
-import com.google.common.base.Predicate
-import com.google.common.collect.Iterables
+import java.util.concurrent.ThreadPoolExecutor
 
 /* functional Java interface (or SAM interface) - an interface with a Single Abstract Method */
 
-/* Java code:
-    public boolean task4(Collection<Integer> collection) {
-        return Iterables.any(collection, new Predicate<Integer>() {
-            @Override
-            public boolean apply(Integer element) {
-                return element % 2 == 0;
-            }
-        });
+/*
+    public class JavaCode {
+        ThreadPoolExecutor executor;
+
+        public void execute() {
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("This runs in a thread pool");
+                }
+            });
+        }
+
+        public void executeLambda() {
+            executor.execute(() -> System.out.println("This runs in a thread pool"));
+        }
     }
 */
 
-/* Kotlin equivalent */
-fun task4(collection: Collection<Int>): Boolean {
-    // If the object is an instance of a functional Java interface,
-    // you can create it using a lambda expression prefixed with the type of the interface:
-    return Iterables.any(collection, Predicate<Int?> { it!! % 2 == 0 })
-}
+class KotlinEquivalent(private val executor: ThreadPoolExecutor) {
+    fun executeObject() {
+        // anonymous class
+        executor.execute(object : Runnable {
+            override fun run() {
+                println("This runs in a thread pool")
+            }
+        })
+    }
 
+    fun executeLambda() {
+        executor.execute({ println("This runs in a thread pool") })
+    }
+
+    val instanceOfFunctionalInterface = Runnable { println("This runs in a thread pool") }
+}
